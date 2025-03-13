@@ -49,7 +49,7 @@ async function main() {
         },
         //    distinct:['name']   // distinct:[''property name']   ause is used within a Prisma query to ensure that the results are unique based on the specified field, in this case, the name field. This means that the query will return only one record for each unique value of the name field, effectively removing any duplicate records that have the same name.
         take: 2, // take is used to limit the number of records returned by a query. In this case, the query will return only the first two records that match the specified criteria.
-        skip:1
+        skip:1 // this is used to skip the first record and return the rest of the records that match the specified criteria.
     })
 
     console.log(user);
