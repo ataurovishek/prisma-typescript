@@ -14,14 +14,15 @@ datasource db {
 }
 
 model User {
-  id             String          @id @default(uuid())
-  age            Int
-  name           String?
-  email          String
-  role           Role            @default(BASIC)
-  writtenPosts   Post[]         @relation("writtenPosts") //one to many //here one user have many posts because here we uses array and this is called one to many relationship because this user can stores a lot of posts
-  favouritePosts Post[]          @relation("favouritePosts") //we define name like 'favouritePosts' to recognise which posts is related to favourite //here one user have many posts because here we uses array and this is called one to many relationship because this user can stores a lot of posts
-  userPreference UserPreference? //one to one
+  id               String          @id @default(uuid())
+  age              Int
+  name             String?
+  email            String
+  role             Role            @default(BASIC)
+  writtenPosts     Post[]          @relation("writtenPosts") //one to many //here one user have many posts because here we uses array and this is called one to many relationship because this user can stores a lot of posts
+  favouritePosts   Post[]          @relation("favouritePosts") //we define name like 'favouritePosts' to recognise which posts is related to favourite //here one user have many posts because here we uses array and this is called one to many relationship because this user can stores a lot of posts
+  userPreference   UserPreference? @relation(fields: [userPreferenceId], references: [id])
+  userPreferenceId String?         @unique //one to one //here ony one user can have one preferences becaise we use @unique and we use question marks on userPreference because it is optional
 
   @@unique([age, name]) // here we use @@unique block level directive to make sure that name and age should be unique
   @@index([email]) // here we use @@index block level directive to make sure that email should be indexed
@@ -30,8 +31,7 @@ model User {
 model UserPreference {
   id           String  @id @default(uuid())
   emailUpdates Boolean
-  user         User    @relation(fields: [userId], references: [id])
-  userId       String  @unique //one to one //here ony one user can have one preferences becaise we use @unique and we use question marks on userPreference because it is optional
+  user         User?
 }
 
 model Post {
