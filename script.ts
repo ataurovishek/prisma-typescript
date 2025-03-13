@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 
 async function main() {
-    await prisma.user.deleteMany()
+    // await prisma.user.deleteMany()
 
 
     // this is only for creating one user 
@@ -32,11 +32,26 @@ async function main() {
     // console.log(user);
 
     // this is for creating multiple users 
-    const user = await prisma.user.findUnique({
+
+    // const user = await prisma.user.createMany({
+    //     data:[
+    //         {
+    //             name:'ataur rahman',
+    //             email:'ataur@test55.com',
+    //             age:
+    //             55
+    //         }
+    //     ]
+    // })
+    const user = await prisma.user.findMany({
         where: {
-            email: 'ataurovishek@gmail.com',
-        }
+            name: 'ataur rahman'
+        },
+        //    distinct:['name']   // distinct:[''property name']   ause is used within a Prisma query to ensure that the results are unique based on the specified field, in this case, the name field. This means that the query will return only one record for each unique value of the name field, effectively removing any duplicate records that have the same name.
+        take: 2, // take is used to limit the number of records returned by a query. In this case, the query will return only the first two records that match the specified criteria.
+        skip:1
     })
+
     console.log(user);
 
 }
