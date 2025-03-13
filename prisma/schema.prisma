@@ -17,7 +17,7 @@ model User {
   id               String          @id @default(uuid())
   age              Int
   name             String?
-  email            String
+  email            String          @unique
   role             Role            @default(BASIC)
   writtenPosts     Post[]          @relation("writtenPosts") //one to many //here one user have many posts because here we uses array and this is called one to many relationship because this user can stores a lot of posts
   favouritePosts   Post[]          @relation("favouritePosts") //we define name like 'favouritePosts' to recognise which posts is related to favourite //here one user have many posts because here we uses array and this is called one to many relationship because this user can stores a lot of posts

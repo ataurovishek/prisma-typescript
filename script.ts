@@ -32,19 +32,10 @@ async function main() {
     // console.log(user);
 
     // this is for creating multiple users 
-    const user = await prisma.user.createMany({
-        data: [
-            {
-                name: 'ataur rahman',
-                email: 'ataurovishek@gmail.com',
-                age: 27
-
-            }, {
-                name: 'irfan rahman',
-                email: 'irfan@gmail.com',
-                age: 25
-            }
-        ]
+    const user = await prisma.user.findUnique({
+        where: {
+            email: 'ataurovishek@gmail.com',
+        }
     })
     console.log(user);
 
